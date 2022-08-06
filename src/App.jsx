@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { playerNames } from "./data/playerNames";
-import "./App.css";
 import Column from "./components/Column";
 
 function App() {
@@ -8,11 +7,26 @@ function App() {
   const [newPlayer, setNewPlayer] = useState("");
   const [loading, setLoading] = useState(false);
   const [playerChange, setPlayerChange] = useState(false);
+  const [index, setIndex] = useState([]); // index to replace
+
   const indexArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   useEffect(() => {
     setPlayerArr(playerNames);
   }, []);
+
+  useEffect(() => {
+    if (index.length == 2) {
+      handleReplacePlayer(index[0], index[1]);
+      setIndex([]);
+
+      setPlayerArr((prev) => [...prev, (playerArr[index[1]].class = "blink")]);
+      setTimeout(() => {
+        setPlayerArr((prev) => [...prev, (playerArr[index[0]].class = "")]);
+        setPlayerArr((prev) => [...prev, (playerArr[index[1]].class = "")]);
+      }, 1500);
+    }
+  });
 
   const handleSort = () => {
     setLoading(true);
@@ -49,32 +63,49 @@ function App() {
     setPlayerChange(false);
   };
 
-  const handleReplacePlayer = (id1, id2) => {};
+  const handleSetPlayerToReplace = (index) => {
+    setPlayerArr((prev) => [...prev, (playerArr[index].class = "blink")]);
+    setIndex((prev) => [...prev, index]);
+  };
+
+  // Error in remove player after replace
+  const handleReplacePlayer = (index1, index2) => {
+    const arr = playerArr;
+    let name1 = arr[index1].name;
+    let name2 = arr[index2].name;
+
+    arr[index1].name = name2;
+    arr[index2].name = name1;
+
+    setPlayerArr(arr);
+  };
 
   return (
     <div className="App">
-      <h2>Custom Sort</h2>
+      <h2>Custom Sort 2.0</h2>
       <div className="container">
         {!loading ? (
           <>
             <Column
+              indexEnd={5}
+              indexStart={-1}
               playerArr={playerArr}
               newPlayer={newPlayer}
               setNewPlayer={setNewPlayer}
               handleAddPlayer={handleAddPlayer}
               handleRemovePlayer={handleRemovePlayer}
-              indexStart={-1}
-              indexEnd={5}
+              setPlayerToReplace={handleSetPlayerToReplace}
             />
 
             <Column
+              indexEnd={10}
+              indexStart={4}
               playerArr={playerArr}
               newPlayer={newPlayer}
               setNewPlayer={setNewPlayer}
               handleAddPlayer={handleAddPlayer}
               handleRemovePlayer={handleRemovePlayer}
-              indexStart={4}
-              indexEnd={10}
+              setPlayerToReplace={handleSetPlayerToReplace}
             />
           </>
         ) : (
