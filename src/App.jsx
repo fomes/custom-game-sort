@@ -28,7 +28,8 @@ function App() {
     }
   });
 
-  const handleSort = () => {
+  const handleSort = (e) => {
+    e.target.blur();
     setLoading(true);
     indexArr.sort(() => Math.random() - 0.5);
     const randomPlayers = [];
