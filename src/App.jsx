@@ -73,10 +73,6 @@ function App() {
     setPlayerArr(arr);
   };
 
-  const handleData = () => {
-    console.log(playerArr)
-  }
-
   return (
     <div className="App">
       <h2>Custom Sort 2.0</h2>
@@ -115,8 +111,6 @@ function App() {
       </div>
 
       <button onClick={handleSort}>SORTEAR</button>
-      <button onClick={handleData}>DATA</button>
-
     </div>
   );
 }
