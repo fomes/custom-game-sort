@@ -19,12 +19,6 @@ function App() {
     if (index.length == 2) {
       handleReplacePlayer(index[0], index[1]);
       setIndex([]);
-
-      setPlayerArr((prev) => [...prev, (playerArr[index[1]].class = "blink")]);
-      setTimeout(() => {
-        setPlayerArr((prev) => [...prev, (playerArr[index[0]].class = "")]);
-        setPlayerArr((prev) => [...prev, (playerArr[index[1]].class = "")]);
-      }, 1500);
     }
   });
 
@@ -65,11 +59,9 @@ function App() {
   };
 
   const handleSetPlayerToReplace = (index) => {
-    setPlayerArr((prev) => [...prev, (playerArr[index].class = "blink")]);
     setIndex((prev) => [...prev, index]);
   };
 
-  // Error in remove player after replace
   const handleReplacePlayer = (index1, index2) => {
     const arr = playerArr;
     let name1 = arr[index1].name;
@@ -80,6 +72,10 @@ function App() {
 
     setPlayerArr(arr);
   };
+
+  const handleData = () => {
+    console.log(playerArr)
+  }
 
   return (
     <div className="App">
@@ -119,6 +115,8 @@ function App() {
       </div>
 
       <button onClick={handleSort}>SORTEAR</button>
+      <button onClick={handleData}>DATA</button>
+
     </div>
   );
 }
