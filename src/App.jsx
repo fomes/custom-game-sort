@@ -75,7 +75,7 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Custom Sort 2.0</h2>
+      <h2>Custom Sort 2022</h2>
       <div className="container">
         {!loading ? (
           <>
